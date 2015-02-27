@@ -1,0 +1,20 @@
+{
+  "name": "devworkflow",
+  "version": "0.0.1",
+  "authors": [
+    "Santiago Carnago <scarnagot@gmail.com>"
+  ],
+  "description": "Development Workflow",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

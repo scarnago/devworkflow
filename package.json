@@ -1,0 +1,23 @@
+{
+  "name": "devworkflow",
+  "version": "0.0.1",
+  "description": "Development workflow fot nodejs, gulpjs, jade and css preprocessors",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "development",
+    "workflow",
+    "jade",
+    "css",
+    "preprocessors",
+    "html",
+    "bower"
+  ],
+  "author": "Santiago Carnago",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.8.11"
+  }
+}

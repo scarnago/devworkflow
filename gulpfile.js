@@ -13,7 +13,7 @@ var gulp = require('gulp'),
 var config = {
     sassPath: './app/sass',
     bowerDir: './bower_components'
-}
+};
 
 gulp.task('css', function() {
     return gulp.src(config.sassPath + '/**/*.sass')
@@ -31,7 +31,7 @@ gulp.task('css', function() {
         .pipe(autoprefix('last 2 version'))
         .pipe(gulp.dest('./public/css'));
 });
- 
+
 // Rerun the task when a file changes
 gulp.task('watch', function() {
     gulp.watch(config.sassPath + '/**/*.sass', ['css']);

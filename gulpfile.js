@@ -42,17 +42,15 @@ gulp.task('webserver', function() {
     .pipe(webserver({
       livereload: true,
       directoryListing: true,
-      fallback: 'index.html',
-      open: true
+      open: 'index.html'
     }));
 });
 
+// jade compile task
 gulp.task('jade', function() {
-  gulp.src(config.jadePath)
+  gulp.src(config.jadePath + '/**/*.jade')
     .pipe(jade({
-      jade: jade,
       pretty: '\t',
-      basedir: config.jadePath
     }))
     //.on('error', console.log('Error'))
     .pipe(gulp.dest(config.publicDir));
@@ -61,4 +59,5 @@ gulp.task('jade', function() {
 // Rerun the task when a file changes
 gulp.task('watch', function() {
   gulp.watch(config.sassPath + '/**/*.sass', ['css']);
+  gulp.watch(config.jadePath + '/**/*.jade', ['jade']);
 });

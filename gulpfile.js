@@ -4,6 +4,7 @@ var gulp = require('gulp'),
   sass = require('gulp-ruby-sass'),
   autoprefix = require('gulp-autoprefixer'),
   coffee = require('gulp-coffee'),
+  webserver = require('gulp-webserver'),
   concat = require('gulp-concat'),
   imagemin = require('gulp-imagemin'),
   browserify = require('gulp-browserify'),
@@ -12,7 +13,10 @@ var gulp = require('gulp'),
 
 var config = {
   sassPath: './app/sass',
-  bowerDir: './bower_components'
+  jadePath: './app/jade',
+  coffeePath: 'app/coffee',
+  bowerDir: './bower_components',
+  publicDir: 'public'
 };
 
 gulp.task('css', function() {
@@ -30,6 +34,28 @@ gulp.task('css', function() {
       })))
     .pipe(autoprefix('last 2 version'))
     .pipe(gulp.dest('./public/css'));
+});
+
+// Execute webserver with livereload
+gulp.task('webserver', function() {
+  gulp.src(config.publicDir)
+    .pipe(webserver({
+      livereload: true,
+      directoryListing: true,
+      fallback: 'index.html',
+      open: true
+    }));
+});
+
+gulp.task('jade', function() {
+  gulp.src(config.jadePath)
+    .pipe(jade({
+      jade: jade,
+      pretty: '\t',
+      basedir: config.jadePath
+    }))
+    //.on('error', console.log('Error'))
+    .pipe(gulp.dest(config.publicDir));
 });
 
 // Rerun the task when a file changes

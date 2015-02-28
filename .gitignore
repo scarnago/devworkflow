@@ -33,3 +33,4 @@ Thumbs.db
 node_modules/
 .sass-cache/
 npm-debug.log
+bower_components

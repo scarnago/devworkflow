@@ -14,27 +14,32 @@ var gulp = require('gulp'),
 var config = {
   sassPath: './app/sass',
   jadePath: './app/jade',
-  coffeePath: 'app/coffee',
+  coffeePath: './app/coffee',
+  srcDir: './app/src',
   bowerDir: './bower_components',
   publicDir: 'public'
 };
 
 // sass compile task
 gulp.task('sass', function() {
-  return gulp.src(config.sassPath + '/**/*.sass')
-    .pipe(sass({
-        style: 'compressed',
-        loadPath: [
-          config.sassPath,
-          config.bowerDir + '/bootstrap-sass-official/assets/stylesheets',
-          config.bowerDir + '/fontawesome/scss',
-        ]
-      })
-      .on("error", notify.onError(function(error) {
-        return "Error: " + error.message;
-      })))
-    .pipe(autoprefix('last 2 version'))
-    .pipe(gulp.dest('./public/css'));
+  return sass(config.sassPath)
+    .on('error', function (err) {
+      console.error('Error!', err.message);
+    })
+      .pipe(autoprefix({
+              browsers: ['last 2 versions'],
+              cascade: false
+          }))
+    .pipe(gulp.dest(config.srcDir + '/css'));
+});
+
+gulp.task('coffee', function() {
+  return gulp.src(config.coffeePath + '/**/*.coffee')
+    .pipe(coffee({
+      bare: true
+    })
+    .on('error', gutil.log))
+    .pipe(gulp.dest(config.srcDir + '/js'));
 });
 
 // jade compile task
@@ -47,11 +52,26 @@ gulp.task('jade', function() {
     .pipe(gulp.dest(config.publicDir));
 });
 
+// Concat files
+gulp.task('concatCss', function() {
+  return gulp.src(config.srcDir + '/css/*.css')
+    .pipe(concat('style.css'))
+    .pipe(gulp.dest(config.publicDir + '/css'));
+});
+
+// Image optimization
+gulp.task('imagemin', ['clean'], function() {
+  return gulp.src(config.srcDir + '/images')
+    // Pass in options to the task
+    .pipe(imagemin({optimizationLevel: 5}))
+    .pipe(gulp.dest(config.publicDir + 'assets/images'));
+});
+
 // Rerun the task when a file changes
 gulp.task('watch', function() {
   gulp.watch(config.sassPath + '/**/*.sass', ['sass']);
   gulp.watch(config.jadePath + '/**/*.jade', ['jade']);
-  gulp.watch(config.jadePath + '/**/*.coffee', ['coffee']);
+  gulp.watch(config.coffeePath + '/**/*.coffee', ['coffee']);
 });
 
 // Execute webserver with livereload
@@ -65,4 +85,4 @@ gulp.task('webserver', function() {
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['watch', 'jade', 'sass', 'coffee', 'webserver']);
+gulp.task('default', ['watch', 'jade', 'sass', 'coffee', 'concatCss', 'webserver']);

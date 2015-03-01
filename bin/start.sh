@@ -2,8 +2,10 @@ mkdir app
 mkdir app/sass
 mkdir app/coffee
 mkdir app/jade
-mkdir app/build/js
-mkdir app/build/css
+mkdir app/src
+mkdir app/src/images
+mkdir app/src/js
+mkdir app/src/css
 mkdir public
 mkdir public/css
 mkdir public/js

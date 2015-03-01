@@ -19,7 +19,8 @@ var config = {
   publicDir: 'public'
 };
 
-gulp.task('css', function() {
+// sass compile task
+gulp.task('sass', function() {
   return gulp.src(config.sassPath + '/**/*.sass')
     .pipe(sass({
         style: 'compressed',
@@ -36,16 +37,6 @@ gulp.task('css', function() {
     .pipe(gulp.dest('./public/css'));
 });
 
-// Execute webserver with livereload
-gulp.task('webserver', function() {
-  gulp.src(config.publicDir)
-    .pipe(webserver({
-      livereload: true,
-      directoryListing: true,
-      open: 'index.html'
-    }));
-});
-
 // jade compile task
 gulp.task('jade', function() {
   gulp.src(config.jadePath + '/**/*.jade')
@@ -58,6 +49,20 @@ gulp.task('jade', function() {
 
 // Rerun the task when a file changes
 gulp.task('watch', function() {
-  gulp.watch(config.sassPath + '/**/*.sass', ['css']);
+  gulp.watch(config.sassPath + '/**/*.sass', ['sass']);
   gulp.watch(config.jadePath + '/**/*.jade', ['jade']);
+  gulp.watch(config.jadePath + '/**/*.coffee', ['coffee']);
 });
+
+// Execute webserver with livereload
+gulp.task('webserver', function() {
+  gulp.src(config.publicDir)
+    .pipe(webserver({
+      livereload: true,
+      directoryListing: true,
+      open: 'index.html'
+    }));
+});
+
+// The default task (called when you run `gulp` from cli)
+gulp.task('default', ['watch', 'jade', 'sass', 'coffee', 'webserver']);

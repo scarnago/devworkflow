@@ -85,4 +85,4 @@ gulp.task('webserver', function() {
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['watch', 'jade', 'sass', 'coffee', 'concatCss', 'webserver']);
+gulp.task('default', ['watch', 'jade', 'sass', 'coffee', 'concatCss', 'imagemin', 'webserver']);

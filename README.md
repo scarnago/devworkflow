@@ -10,3 +10,4 @@ Feel free to fork this repo.
 1. First clone this repository from (https://github.com/scarnago/devworkflow.git)
 2. Then execute in terminal `bin/start.sh`
 3. Start development
+4. When finish your project development, just copy `public` folder

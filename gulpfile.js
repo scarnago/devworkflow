@@ -87,11 +87,25 @@ gulp.task('jade', function() {
     }));
 });
 
-// Concat files
-gulp.task('concatCss', function() {
+// Concat CSS files
+gulp.task('concatcss', function() {
   return gulp.src(config.srcDir + '/css/*.css')
     .pipe(concat('style.css'))
-    .pipe(gulp.dest(config.publicDir + '/css'));
+    .pipe(gulp.dest(config.publicDir + '/css'))
+    .pipe(notify({
+      message: 'All your CSS files has been concatenated into style.css'
+    }));
+});
+
+// Concat Javascript files
+gulp.task('concatjs', function() {
+  return gulp.src(config.srcDir + '/js/*.js')
+    .pipe(concat('main.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest(config.publicDir + '/js'))
+    .pipe(notify({
+      message: 'All your JS files has been concatenated and minify into main.js'
+    }));
 });
 
 // Rerun the task when a file changes
@@ -99,6 +113,8 @@ gulp.task('watch', function() {
   gulp.watch(config.sassPath + '/**/*.sass', ['sass']);
   gulp.watch(config.jadePath + '/**/*.jade', ['jade']);
   gulp.watch(config.coffeePath + '/**/*.coffee', ['coffee']);
+  gulp.watch(config.srcDir + '/js/**/*.js', ['concatjs']);
+  gulp.watch(config.srcDir + '/css/**/*.css', ['concatcss']);
 });
 
 // Execute webserver with livereload
@@ -112,4 +128,4 @@ gulp.task('webserver', function() {
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['copy', 'watch', 'jade', 'sass', 'coffee', 'concatCss', 'webserver']);
+gulp.task('default', ['copy', 'jade', 'sass', 'coffee', 'watch', 'webserver']);

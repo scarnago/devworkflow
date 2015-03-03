@@ -17,28 +17,56 @@ var config = {
   coffeePath: './app/coffee',
   srcDir: './app/src',
   bowerDir: './bower_components',
-  publicDir: 'public'
+  publicDir: './public'
 };
+
+// copy multiple files at once
+gulp.task('copy', function() {
+  gulp.src([
+      // css files from vendors in bower_components
+      config.bowerDir + '/bootstrap/dist/css/bootstrap.min.css',
+      config.bowerDir + '/bootstrap/dist/css/bootstrap.css',
+      config.bowerDir + '/fontawesome/css/font-awesome.css',
+      config.bowerDir + '/fontawesome/css/font-awesome.min.css',
+    ])
+    .pipe(gulp.dest(config.publicDir + '/css/vendor'));
+  gulp.src([
+      // js files from vendors in bower_components
+      config.bowerDir + '/bootstrap/dist/js/bootstrap.js',
+      config.bowerDir + '/bootstrap/dist/js/bootstrap.min.js',
+      config.bowerDir + '/jquery/dist/jquery.js',
+      config.bowerDir + '/jquery/dist/jquery.min.js',
+    ])
+    .pipe(gulp.dest(config.publicDir + '/js/vendor'));
+  gulp.src([
+      config.bowerDir + '/fontawesome/fonts/*.*'
+    ])
+    .pipe(gulp.dest(config.publicDir + '/fonts/'));
+  gulp.src([
+      config.bowerDir + '/bootstrap/fonts/*.*'
+    ])
+    .pipe(gulp.dest(config.publicDir + '/fonts/'));
+});
 
 // sass compile task
 gulp.task('sass', function() {
   return sass(config.sassPath)
-    .on('error', function (err) {
+    .on('error', function(err) {
       console.error('Error!', err.message);
     })
-      .pipe(autoprefix({
-              browsers: ['last 2 versions'],
-              cascade: false
-          }))
+    .pipe(autoprefix({
+      browsers: ['last 2 versions'],
+      cascade: false
+    }))
     .pipe(gulp.dest(config.srcDir + '/css'));
 });
 
 gulp.task('coffee', function() {
   return gulp.src(config.coffeePath + '/**/*.coffee')
     .pipe(coffee({
-      bare: true
-    })
-    .on('error', gutil.log))
+        bare: true
+      })
+      .on('error', gutil.log))
     .pipe(gulp.dest(config.srcDir + '/js'));
 });
 
@@ -77,4 +105,4 @@ gulp.task('webserver', function() {
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['watch', 'jade', 'sass', 'coffee', 'concatCss', 'webserver']);
+gulp.task('default', ['copy', 'watch', 'jade', 'sass', 'coffee', 'concatCss', 'webserver']);

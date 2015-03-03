@@ -7,6 +7,6 @@ Feel free to fork this repo.
 
 ## How to Use?
 
-1. First clone this repository
+1. First clone this repository from (https://github.com/scarnago/devworkflow.git)
 2. Then execute in terminal `bin/start.sh`
 3. Start development

@@ -50,15 +50,20 @@ gulp.task('copy', function() {
 
 // sass compile task
 gulp.task('sass', function() {
-  return sass(config.sassPath)
+  return sass(config.sassPath, {
+    style: 'expanded'
+  })
     .on('error', function(err) {
       console.error('Error!', err.message);
     })
     .pipe(autoprefix({
-      browsers: ['last 2 versions'],
+      browsers: ['last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'],
       cascade: false
     }))
-    .pipe(gulp.dest(config.srcDir + '/css'));
+    .pipe(gulp.dest(config.srcDir + '/css'))
+    .pipe(notify({
+      message: 'Your SASS file has been compiled and auto-prefixed.'
+    }));
 });
 
 gulp.task('coffee', function() {
@@ -74,10 +79,12 @@ gulp.task('coffee', function() {
 gulp.task('jade', function() {
   gulp.src(config.jadePath + '/**/*.jade')
     .pipe(jade({
-      pretty: '\t',
+      pretty: true,
     }))
-    //.on('error', console.log('Error'))
-    .pipe(gulp.dest(config.publicDir));
+    .pipe(gulp.dest(config.publicDir))
+    .pipe(notify({
+      message: 'Your Jade file has been molded into HTML.'
+    }));
 });
 
 // Concat files

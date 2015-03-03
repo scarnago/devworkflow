@@ -59,14 +59,6 @@ gulp.task('concatCss', function() {
     .pipe(gulp.dest(config.publicDir + '/css'));
 });
 
-// Image optimization
-gulp.task('imagemin', ['clean'], function() {
-  return gulp.src(config.srcDir + '/images')
-    // Pass in options to the task
-    .pipe(imagemin({optimizationLevel: 5}))
-    .pipe(gulp.dest(config.publicDir + 'assets/images'));
-});
-
 // Rerun the task when a file changes
 gulp.task('watch', function() {
   gulp.watch(config.sassPath + '/**/*.sass', ['sass']);
@@ -85,4 +77,4 @@ gulp.task('webserver', function() {
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['watch', 'jade', 'sass', 'coffee', 'concatCss', 'imagemin', 'webserver']);
+gulp.task('default', ['watch', 'jade', 'sass', 'coffee', 'concatCss', 'webserver']);

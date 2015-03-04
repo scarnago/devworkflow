@@ -77,10 +77,11 @@ gulp.task('coffee', function() {
 
 // jade compile task
 gulp.task('jade', function() {
-  gulp.src(config.jadePath + '/**/*.jade')
+  gulp.src(config.jadePath + '/*.jade')
     .pipe(jade({
       pretty: true,
     }))
+    .on('error', gutil.log)
     .pipe(gulp.dest(config.publicDir))
     .pipe(notify({
       message: 'Your Jade file has been molded into HTML.'

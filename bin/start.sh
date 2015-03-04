@@ -2,6 +2,8 @@ mkdir app
 mkdir app/sass
 mkdir app/coffee
 mkdir app/jade
+mkdir app/jade/mixins
+mkdir app/jade/settings
 mkdir app/src
 mkdir app/src/images
 mkdir app/src/js
@@ -16,6 +18,6 @@ mkdir public/fonts
 mkdir public/assets/images
 mkdir public/assets/videos
 mkdir public/assets/audios
-bower uptade
+bower update
 npm install
 # gulp

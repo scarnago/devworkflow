@@ -10,9 +10,7 @@ mkdir app/src/js
 mkdir app/src/css
 mkdir public
 mkdir public/css
-mkdir public/css/vendor
 mkdir public/js
-mkdir public/js/vendor
 mkdir public/assets
 mkdir public/fonts
 mkdir public/assets/images

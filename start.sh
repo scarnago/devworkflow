@@ -5,7 +5,8 @@ mkdir app/jade
 mkdir app/stylus
 mkdir app/less
 mkdir app/jade/mixins
-mkdir app/jade/settings
+mkdir app/jade/includes
+mkdir app/jade/layouts
 mkdir app/src
 mkdir app/src/images
 mkdir app/src/js

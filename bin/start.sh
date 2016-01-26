@@ -2,6 +2,8 @@ mkdir app
 mkdir app/sass
 mkdir app/coffee
 mkdir app/jade
+mkdir app/stylus
+mkdir app/less
 mkdir app/jade/mixins
 mkdir app/jade/settings
 mkdir app/src
